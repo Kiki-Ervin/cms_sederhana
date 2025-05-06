@@ -34,7 +34,7 @@ ob_start();
 </div>
 
 <div class="row">
-    <div class="col-12">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Recent Posts</h3>
@@ -65,6 +65,16 @@ ob_start();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Calendar</h3>
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
             </div>
         </div>
     </div>
