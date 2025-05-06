@@ -31,10 +31,24 @@ ob_start();
             </a>
         </div>
     </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3 id="current-date"></h3>
+                <p id="current-day"></p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-calendar"></i>
+            </div>
+            <div class="small-box-footer">
+                <span id="current-month"></span>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Recent Posts</h3>
@@ -65,16 +79,6 @@ ob_start();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Calendar</h3>
-            </div>
-            <div class="card-body">
-                <div id="calendar"></div>
             </div>
         </div>
     </div>
