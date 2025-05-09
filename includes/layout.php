@@ -20,19 +20,10 @@ requireLogin();
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i> <?php echo htmlspecialchars($_SESSION['username']); ?>
+                <li class="nav-item">
+                    <a href="logout.php" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="account_settings.php">
-                            <i class="fas fa-cog"></i> Account Settings
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout.php">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    </div>
                 </li>
             </ul>
         </nav>
@@ -56,6 +47,12 @@ requireLogin();
                             <a href="posts.php" class="nav-link">
                                 <i class="nav-icon fas fa-file-alt"></i>
                                 <p>Posts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="account_settings.php" class="nav-link">
+                                <i class="nav-icon fas fa-user-cog"></i>
+                                <p>Account Settings</p>
                             </a>
                         </li>
                     </ul>
