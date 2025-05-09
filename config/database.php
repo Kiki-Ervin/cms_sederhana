@@ -26,11 +26,30 @@ $sql = "CREATE TABLE IF NOT EXISTS users (
     username VARCHAR(50) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    last_login TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
 
 if (!$conn->query($sql)) {
     die("Error creating users table: " . $conn->error);
+}
+
+// Add last_login column if it doesn't exist
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'last_login'");
+if ($result->num_rows == 0) {
+    $sql = "ALTER TABLE users ADD COLUMN last_login TIMESTAMP NULL AFTER password";
+    if (!$conn->query($sql)) {
+        die("Error adding last_login column: " . $conn->error);
+    }
+}
+
+// Add email column if it doesn't exist
+$result = $conn->query("SHOW COLUMNS FROM users LIKE 'email'");
+if ($result->num_rows == 0) {
+    $sql = "ALTER TABLE users ADD COLUMN email VARCHAR(100) NOT NULL UNIQUE AFTER username";
+    if (!$conn->query($sql)) {
+        die("Error adding email column: " . $conn->error);
+    }
 }
 
 // Create posts table
@@ -48,11 +67,12 @@ if (!$conn->query($sql)) {
 
 // Insert default admin user if not exists
 $default_username = 'admin';
+$default_email = 'admin@example.com';
 $default_password = password_hash('admin123', PASSWORD_DEFAULT);
 
-$sql = "INSERT IGNORE INTO users (username, password) VALUES (?, ?)";
+$sql = "INSERT IGNORE INTO users (username, email, password) VALUES (?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $default_username, $default_password);
+$stmt->bind_param("sss", $default_username, $default_email, $default_password);
 $stmt->execute();
 $stmt->close();
 ?> 

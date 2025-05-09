@@ -8,6 +8,14 @@ $conn = getDBConnection();
 $result = $conn->query("SELECT COUNT(*) as total FROM posts");
 $total_posts = $result->fetch_assoc()['total'];
 
+// Get total users count
+$result = $conn->query("SELECT COUNT(*) as total FROM users");
+$total_users = $result->fetch_assoc()['total'];
+
+// Get latest login
+$result = $conn->query("SELECT username, last_login FROM users WHERE last_login IS NOT NULL ORDER BY last_login DESC LIMIT 1");
+$latest_login = $result->fetch_assoc();
+
 // Get recent posts
 $result = $conn->query("SELECT * FROM posts ORDER BY created_at DESC LIMIT 5");
 $recent_posts = $result->fetch_all(MYSQLI_ASSOC);
@@ -29,6 +37,39 @@ ob_start();
             <a href="posts.php" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3><?php echo $total_users; ?></h3>
+                <p>Total Users</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <a href="#" class="small-box-footer">
+                Registered Users <i class="fas fa-users"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <?php if ($latest_login): ?>
+                    <h3><?php echo htmlspecialchars($latest_login['username']); ?></h3>
+                    <p>Last Login: <?php echo date('Y-m-d H:i', strtotime($latest_login['last_login'])); ?></p>
+                <?php else: ?>
+                    <h3>No Login</h3>
+                    <p>No user has logged in yet</p>
+                <?php endif; ?>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user-clock"></i>
+            </div>
+            <div class="small-box-footer">
+                Latest User Activity
+            </div>
         </div>
     </div>
     <div class="col-lg-3 col-6">
